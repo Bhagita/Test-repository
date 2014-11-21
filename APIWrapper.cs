@@ -16,13 +16,7 @@ namespace ForexTradesimulator
 
         public  Dictionary<DateTime, CandleStick> outputDict = new Dictionary<DateTime, CandleStick>();
         public FetcherParams workingParams = new FetcherParams();
-        /// <summary>
-        /// This simplefetcher takes a few inputs as fetcherParams, creates the right unique url for the params.
-        /// Then it processes the web-request and obtains the response via a streamreader
-        /// the json will be processed by our own personal Deserializer :D
-        /// </summary>
-        /// <param name="fetcherParams"></param>
-        /// <returns>A Dictionairy filled with candlestick objects according to the fetcherParams</returns>
+
         public Dictionary<DateTime, CandleStick> DictionaryFetcher(FetcherParams fetcherParams)
         {
                 string url = "";
@@ -127,17 +121,12 @@ namespace ForexTradesimulator
             output = output.Replace("closeAsk:", String.Empty);
             output = output.Replace("volume:", String.Empty);
             output = output.Replace("complete:", String.Empty);
-            //output = output.Replace("{", String.Empty);
-            //output = output.Replace("}", String.Empty);
 
             List<string> outputList = output.Split('\n').ToList();
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    outputList.RemoveAt(i);
-            //}
+
             int arrayOffset = 13;
             outputDict.Clear();
-            for (int i = 0; i < workingParams.count; i++) // the i max must be dynamically programmed, to correlated to the size of the output array (length is (outputarray.length - 6)/13
+            for (int i = 0; i < workingParams.count; i++) 
             {
                 CandleStick currCandle = new CandleStick();
                 
